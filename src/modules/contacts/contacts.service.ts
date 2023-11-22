@@ -14,13 +14,11 @@ import { plainToInstance } from 'class-transformer';
 export class ContactsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createContactDTO: CreateContactDTO) {
+  async create(createContactDTO: CreateContactDTO, userId: string) {
     const contact = new Contact();
     Object.assign(Contact, {
       ...createContactDTO,
     });
-
-    const userId = createContactDTO.userId;
 
     const newContact = await this.prisma.contact.create({
       data: {

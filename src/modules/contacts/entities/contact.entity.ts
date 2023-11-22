@@ -4,7 +4,7 @@ export class Contact {
     readonly id: string;
     name: string;
     email: string;
-    phone: number;
+    phone: string;
     joined_at: Date;
   
     constructor() {

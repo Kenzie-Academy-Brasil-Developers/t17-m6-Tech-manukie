@@ -7,18 +7,25 @@ import {
   Param,
   Delete,
   HttpCode,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDTO } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('contacts')
 @Controller('contacts')
 export class ContactsController {
   constructor(private readonly contactsService: ContactsService) {}
 
-  @Post()
-  create(@Body() createContactDto: CreateContactDTO) {
-    return this.contactsService.create(createContactDto);
+  @Post('')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  create(@Body() createContactDTO: CreateContactDTO, @Request() req) {
+    return this.contactsService.create(createContactDTO, req.user.id);
   }
 
   @Get()
@@ -32,12 +39,16 @@ export class ContactsController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {
     return this.contactsService.update(id, updateContactDto);
   }
 
   @HttpCode(204)
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.contactsService.remove(id);
   }
