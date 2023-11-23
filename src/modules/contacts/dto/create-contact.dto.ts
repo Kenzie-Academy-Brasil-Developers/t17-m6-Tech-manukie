@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, IsDate, IsOptional} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateContactDTO {
     @ApiProperty({
@@ -26,7 +26,4 @@ export class CreateContactDTO {
     })
     @IsString()
     phone: string;
-
-    @IsDate()
-    joined_at: Date;
   }

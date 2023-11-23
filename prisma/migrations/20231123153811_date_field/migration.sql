@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Contact" ALTER COLUMN "joined_at" SET DATA TYPE DATE;
+
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "joined_at" DROP DEFAULT,
+ALTER COLUMN "joined_at" SET DATA TYPE DATE;

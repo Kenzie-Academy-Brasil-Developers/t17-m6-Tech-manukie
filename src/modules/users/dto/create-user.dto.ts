@@ -25,6 +25,7 @@ export class CreateUserDto {
     @ApiProperty({
       description: 'Senha do usuário',
       type: String,
+      default: '123456789'
     })
     @IsString()
     @MinLength(8)
@@ -40,7 +41,4 @@ export class CreateUserDto {
     })
     @IsString()
     phone: string;
-
-    @IsDate()
-    joined_at: Date;
   }

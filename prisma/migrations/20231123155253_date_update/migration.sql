@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Contact" ALTER COLUMN "joined_at" SET DATA TYPE TIMESTAMP(6);
+
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "joined_at" SET DATA TYPE TIMESTAMP(6);

@@ -16,7 +16,7 @@ export class ContactsService {
 
   async create(createContactDTO: CreateContactDTO, userId: string) {
     const contact = new Contact();
-    Object.assign(Contact, {
+    Object.assign(contact, {
       ...createContactDTO,
     });
 
