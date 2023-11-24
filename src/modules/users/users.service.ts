@@ -8,6 +8,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/database/prisma.service';
+import { v2 as cloudinary } from 'cloudinary';
+import { unlink } from 'node:fs';
 
 @Injectable()
 export class UsersService {
@@ -79,5 +81,34 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
     await this.prisma.user.delete({ where: { id } });
+  }
+
+  async upload(
+    profile_pic: Express.Multer.File,
+    userId: string,
+  ) {
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET,
+    });
+
+    const uploadImage = await cloudinary.uploader.upload(
+      profile_pic.path,
+      { resource_type: 'image' },
+      (error, result) => {
+        return result;
+      },
+    );
+
+    const updateUserPic = await this.prisma.user.update({
+      where: { id: userId },
+      data: { profile_pic: uploadImage.secure_url, }
+    });
+
+    unlink(profile_pic.path, (error) => {
+      if (error) console.log(error);
+    });
+    return updateUserPic;
   }
 }

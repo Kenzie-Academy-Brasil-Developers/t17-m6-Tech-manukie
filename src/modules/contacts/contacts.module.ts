@@ -15,11 +15,11 @@ import { diskStorage } from 'multer';
         },
       }),
       fileFilter: (_, file, cb) => {
-        if (file.mimetype === 'image/jpeg' || file.mimetype === 'audio/mpeg') {
+        if (file.mimetype === 'image/jpeg') {
           cb(null, true);
         } else {
           cb(
-            new BadRequestException('Only jpeg and mp3 format allowed'),
+            new BadRequestException('Only jpeg format allowed'),
             false,
           );
         }
