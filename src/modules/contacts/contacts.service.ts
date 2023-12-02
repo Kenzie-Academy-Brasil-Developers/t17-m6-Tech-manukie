@@ -27,6 +27,7 @@ export class ContactsService {
         name: contact.name,
         email: contact.email,
         phone: contact.phone,
+        description: contact.description,
         joined_at: contact.joined_at,
         userId,
       },
@@ -89,16 +90,5 @@ export class ContactsService {
         return result;
       },
     );
-
-    const updateContactPic = await this.prisma.contact.update({
-      where: { id: contactId },
-      data: { profile_pic: uploadImage.secure_url, }
-    });
-
-    unlink(profile_pic.path, (error) => {
-      if (error) console.log(error);
-    });
-    return updateContactPic;
-  }
 }
-
+}

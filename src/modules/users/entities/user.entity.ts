@@ -6,7 +6,6 @@ export class User {
   email: string;
   password: string;
   phone: string;
-  profile_pic: string;
   joined_at: Date;
 
   constructor() {

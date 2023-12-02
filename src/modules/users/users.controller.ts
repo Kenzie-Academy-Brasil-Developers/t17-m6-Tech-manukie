@@ -56,21 +56,4 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
-
-  @Patch('upload/:id')
-  @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'profile_pic', maxCount: 1 },
-    ]),
-  )
-  upload(
-    @UploadedFiles()
-    files: {
-      profile_pic?: Express.Multer.File[];
-    },
-    @Param('id') id: string,
-  ) {
-    const { profile_pic } = files;
-    return this.usersService.upload(profile_pic[0], id);
-  }
 }

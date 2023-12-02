@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateContactDTO {
     @ApiProperty({
@@ -27,8 +27,12 @@ export class CreateContactDTO {
     @IsString()
     phone: string;
 
-    @ApiProperty()
+    @ApiProperty({
+      description: 'Descrição sobre o contato',
+      type: String,
+    })
     @IsString()
+    @MaxLength(120)
     @IsOptional()
-    profile_pic: string | null;
+    description: string | null;
   }

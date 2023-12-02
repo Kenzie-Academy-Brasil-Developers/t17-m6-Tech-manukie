@@ -5,7 +5,7 @@ export class Contact {
   name: string;
   email: string;
   phone: string;
-  profile_pic: string;
+  description: string;
   joined_at: Date;
   
   constructor() {
